@@ -60,5 +60,5 @@ Start the server:-
 
 ## License
 This package is licensed under
-[GNU GPL v3](https://choosealicense.com/licenses/mit/).
+[GNU GPL v3](https://choosealicense.com/licenses/gpl-3.0/).
 
