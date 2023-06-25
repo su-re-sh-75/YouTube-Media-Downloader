@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'history.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav">
+		<a href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+        <a class="active" href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+    {% if page_obj %}
+        <table class="table">
+            <tr>
+                <th>#</th>
+                <th>Video URL (click to view)</th>
+                <th>Media Type</th>
+                <th>Date & Time</th>
+            </tr>
+            {% for his in page_obj %}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <td><a href="{{his.down_link}}" target="_blank"><i>{{his.down_link}}</i></a></td>
+                <td> {{his.down_type}}</td>
+                <td> {{his.down_time}}</td>
+            </tr>
+            {% endfor %}
+        </table>    
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a class="pagelink" href="?page={{ page_obj.previous_page_number }}">Previous</a><br>
+            {% endif %}
+            <span class="current-page">{{ page_obj.number }}</span><br>
+            {% if page_obj.has_next %}
+                <a class="pagelink" href="?page={{ page_obj.next_page_number }}">Next</a>
+            {% endif %}
+        </div>
+    {% else %}
+        <h3 class="footer-help"><i>History is empty!! Download any media (video / audio / playlist) from YouTube and enjoy!!</i></h3>
+    {% endif %}
+    <div class="footer-help">
+        <p><i>Note: The history shown here is only today's downloading history<br>The history resets everyday</i></p>
+    </div>
+</body>
+</html>

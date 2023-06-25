@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'audio_home.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
+</head>
+<body>
+    <div class="topnav">
+		<a href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a class="active" href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+		<a href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		  </div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+	<form class="inputurl" action="auddownload/" method="GET">
+		<div class="input-container">
+			<input name="url" type="url" class="text-input" id="videourl" placeholder="Enter YouTube Video url..">
+			<label for="videourl" class="label">Video URL</label>
+		</div>
+		<button class="dbutton"><i class="uil uil-import"></i> Download</button>
+	</form>
+	<div class="para">
+		<h4>YTDownloader is the fastest Youtube Downloader tool that allows you to easily convert and download videos and audio from YouTube for free and in the best available quality. It supports downloading all video formats such as: MP4, M4V, 3GP, WMV, FLV, MO, MP3, WEBM, etc.</h4>
+	</div>
+	<div class="para-container">
+		<div class="para-child1">
+			<h5><strong>Audio Downloader Instructions</strong></h5>
+			<p>1. Paste the link of video which audio you want to download</p>
+			<p>2. Click "Download" button to begin downloading process</p>
+			<p>3. Select the audio format you want to download, then click "Download" button</p>
+		</div>
+		<div class="para-child2">
+			<h5><strong>YTDownloader Features</strong></h5>
+			<p>• Unlimited downloads and always free</p>
+			<p>• High-speed video converter</p>
+			<p>• No registration required</p>
+			<p>• Support downloading with all formats</p>
+		</div>	
+	</div>
+</body>
+</html>

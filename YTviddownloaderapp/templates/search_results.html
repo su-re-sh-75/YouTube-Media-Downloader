@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'search_results.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav">
+		<a class="active" href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+        <a href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		</div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+	{% for yt in page_obj %}
+        <div class="vid_container">
+            <div class="vidinfo">
+                <a href="https://www.youtube.com/watch?v={{yt.video_id}}" target="_blank"><img src="{{yt.thumbnail_url}}" alt="Thumbnail"></a>
+                <div class="text">
+                    <p><a id="title" href="https://www.youtube.com/watch?v={{yt.video_id}}" target="_blank">{{yt.title}}</a></p>
+                    <p><span style="color: white;"><i><a href="{{yt.channel_url}}" target="_blank">{{yt.author}}</a></i></span></p>
+                    <p>Views : <span style="color: white;">{{yt.views}}</span></p> 
+                    <p><span style="color: rgb(209, 209, 209);">{{yt.publish_date}}</span></p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    <div class="pagination">
+        {% if page_obj.has_previous %}
+            <a class="pagelink" href="?page={{ page_obj.previous_page_number }}&{{ pagination_query_params }}">Previous</a><br>
+        {% endif %}
+        <span class="current-page">{{ page_obj.number }}</span><br>
+        {% if page_obj.has_next %}
+            <a class="pagelink" href="?page={{ page_obj.next_page_number }}&{{ pagination_query_params }}">Next</a>
+        {% endif %}
+    </div>
+    
+</body>
+</html>

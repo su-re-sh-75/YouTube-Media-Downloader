@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'vid_down_done_error.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav">
+		<a class="active" href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+		<a href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		  </div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+	{% if isPlaylist %}
+		<h2>Playlist Title: <i>{{Title}}</i></h2>
+		<h3>Channel Name: <i><a href="{{Ch_link}}" style="text-decoration: none;color:greenyellow;" target="_blank">{{Ch_name}}</a></i></h3>
+		{% for i in content %}
+			<p style="color: white; font-size: medium;">{{forloop.counter}} ) {{i}}</p>
+		{% endfor%}
+		<p style="color:greenyellow;">If errors are not occured, then all Media files will be saved in <i>{{saved_path}}</i></p>
+	{% else %}
+		<h1>{{Title}} DOWNLOADED </h1>
+		<ul style="color: white;font-size: medium;">
+			<li>Media is saved in <i>{{saved_path}}</i></li>
+		</ul>
+	{% endif %}
+</body>
+</html>

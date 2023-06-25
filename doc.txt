@@ -1,0 +1,91 @@
+Paginating the Search Results:
+
+1) The search results are paginated using Django's Paginator class. 
+This class takes the list of search results (video_list) 
+and the number of results to display per page (per_page in our example, set to 10).
+The Paginator instance is created with paginator = Paginator(video_list, per_page).
+Next, the current page number is obtained from the request's GET parameters using page_number = request.GET.get('page').
+The get_page() method of the Paginator object is used to get a Page object for the current page. 
+This handles invalid page numbers and returns an empty page instead.
+The page_obj variable holds the Page object representing the current page of search results.
+
+Passing Pagination Links in the Template:
+
+2) In the template (search_results.html), the pagination links are included to navigate between pages of search results.
+The links are generated using the page_obj object and 
+its attributes has_previous, has_next, previous_page_number, and next_page_number.
+To preserve the search query parameter (search) when navigating between pages, 
+the pagination_query_params variable is passed to the template context. 
+This variable is generated in the search view.
+In the pagination links, the pagination_query_params is appended to the query string using {{ pagination_query_params }}.
+
+Handling Pagination Links in the View:
+
+3) When a pagination link is clicked, the request is sent to the search view with the updated page number in the GET parameters.
+The search view retrieves the updated page number from the request's GET parameters (page_number = request.GET.get('page')).
+The get_page() method is called again with the updated page number to get the corresponding Page object.
+The page_obj variable is updated with the new Page object, and it is included in the context for rendering in the template.
+By implementing pagination, the search results are split into smaller subsets and displayed on separate pages. 
+This approach improves performance by reducing the amount of data rendered and loaded in the browser at once. 
+Users can navigate through the search results by clicking on the "Previous" and "Next" pagination links.
+
+    paginator = Paginator(video_list, per_page=10)
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    context = {'page_obj': page_obj}
+
+
+    # Include the search query in the pagination links
+query_params = request.GET.copy()
+    if 'page' in query_params:
+        del query_params['page']
+    pagination_query_params = query_params.urlencode()
+
+    context['pagination_query_params'] = pagination_query_params
+
+
+1) query_params is a copy of the GET parameters in the request. 
+The copy() method is used to create a mutable copy of the request.GET QueryDict object.
+
+2) The next section of code checks if the 'page' parameter exists in the query_params dictionary. 
+If it does, it is removed using the del statement. 
+This is done because the 'page' parameter will be dynamically updated in the pagination links, 
+so it should not be included as part of the query parameters for the other links.
+
+3) After removing the 'page' parameter, the urlencode() method is called on the query_params object. 
+This method converts the dictionary into a URL-encoded string representation. 
+It properly escapes special characters and formats the query parameters in the standard URL format (key1=value1&key2=value2&...).
+
+4) Finally, the resulting URL-encoded query parameters string (pagination_query_params) is stored in the context dictionary with the key 'pagination_query_params'. 
+This makes it available to be passed to the template and used in the pagination links.
+
+4) By including the pagination_query_params in the pagination links, 
+it ensures that the other query parameters (excluding the 'page' parameter) are preserved when navigating between pages. 
+It prevents the loss of any existing query parameters during pagination.
+
+5) Overall, this code snippet handles the preservation of query parameters other than 'page' in the pagination links, 
+ensuring that the complete state of the search query is maintained when navigating between pages.
+
+from django.utils import timezone
+from datetime import timedelta
+
+# Get the current date and time
+current_date = timezone.now().date()
+
+# Calculate the date of yesterday
+yesterday = current_date - timedelta(days=1)
+
+# Delete history objects with down_time from yesterday
+History.objects.filter(down_time__day=yesterday.day, down_time__lt=current_date).delete()
+
+# Query today's history objects
+history_today = History.objects.filter(down_time__gte=current_date)
+
+# Print today's history objects
+for obj in history_today:
+    print(obj)
+
+In this example, we first calculate the current date and then determine the date of yesterday by subtracting one day. 
+We use the filter method with down_time__day to match the day of yesterday and down_time__lt to match any time before today. 
+This filters the history objects with a down_time from yesterday. We then delete those objects using the delete method.
+Finally, we query the history objects with down_time from today using down_time__gte (greater than or equal to the current date).

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'vid_down_done_error.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav">
+		<a class="active" href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+		<a href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		  </div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+	{% if Title %}
+		<h2><strong>Error while processing video: "{{Title}}"</strong></h2>
+	{% endif %}
+	{% if Exception %}
+		<h3>"{{Exception}}"</h3>
+	{% endif %}
+	<div style="color: white;">
+		<p>The error may be caused due to following reasons</p>
+		<ul>
+			<li>Invalid YouTube video link</li>
+			<li>Invalid Search text / empty search</li>
+			<li>Errors occured when downloading</li>
+			<li>The video may be Age-Restricted, Region-Restricted, Video-Unavailable or Private</li>
+			<li>Video maybe Live Stream</li>
+		</ul>
+	</div>
+</body>
+</html>

@@ -1,0 +1,66 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>YTDownloader</title>
+	<link rel="icon" type="image/x-icon" href="{% static 'images/PNG_Logo.png' %}">
+	<link rel="stylesheet" href="{% static 'bit_show.css' %}">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    <div class="topnav">
+		<a href="{% url 'ytproject:home' %}">YouTube Video Downloader</a>
+		<a class="active" href="{% url 'ytproject:audio_home' %}">Audio Downloader</a>
+		<a href="{% url 'ytproject:playlist_home' %}">Playlist Downloader</a>
+        <a href="{% url 'ytproject:view_history' %}">History</a>
+		<div class="search-container">
+			<form action="{% url 'ytproject:search' %}" method="GET">
+			  <input type="text" placeholder="Search.." name="search">
+			  <button type="submit" autocomplete="off"><i class="fa fa-search"></i></button>
+			</form>
+		  </div>
+	</div>
+	<div class="header">
+		<h1><img src="{% static 'images/PNG_Logo.png' %}" alt="logo">YouTube Downloader</h1>  
+	</div>
+    <div class="vidinfo">
+        <a href="{{Thumbnail}}"><img src="{{Thumbnail}}" alt="Thumbnail"></a>
+        <div class="text1">
+            <h2>{{Title}}</h2>
+            <div class="text2">
+                <p>Views : <span style="color: white;">{{Views}}</span></p> 
+                <p>Duration : <span style="color: white;">{{Duration}}</span></p>
+                <p>Posted by : <span style="color: white;"><i><a href="{{Ch_link}}" target="_blank">{{Ch_name}}</a></i></span></p>
+                <p>Published on: <span style="color: white;">{{Publish_date}}</span></p>
+            </div>
+        </div>  
+    </div>
+    <div class="table">
+        <table>
+            <tr>
+                <th>#</th>
+                <th>Size</th>
+                <th>Bit Rate</th>
+                <th>Download</th>
+            </tr>
+            {% for i in bit_list%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <td>{{i.filesize_mb}} MB</td>
+                <td>{{i.abr}}</td>
+                <td>
+                    <form action="{% url 'ytproject:audio_download' i.abr %}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn">Download</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    
+</body>
+</html>

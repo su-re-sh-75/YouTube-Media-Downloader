@@ -1,0 +1,170 @@
+body{
+    font-family: sans-serif;
+    color: greenyellow;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: 100% 100%;
+    background-image: linear-gradient(rgba(9, 9, 9, 0.4), rgba(9, 9, 9, 0.4)), url(images/bg2.jpg);
+}
+  
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+/* NAVIGATION BAR STYLING */
+  .topnav {
+    background-color: transparent;
+    overflow: hidden;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: sans-serif;
+  }
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: greenyellow;
+    color: black;
+  }
+  
+  .topnav .search-container {
+    float: right;
+  }
+  
+  .topnav input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    border-radius: 30px;
+  }
+  
+  .topnav .search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: greenyellow;
+    font-size: 17px;
+    border: none;
+    border-radius: 50px;
+    cursor: pointer;
+    color: black;
+  }
+  
+  .topnav .search-container button:hover {
+    background: rgb(211, 253, 149);
+  }
+
+  /* HEADER YTDOWNLOADER IMG AND TEXT STYLING*/
+  .header img{
+    float: left;
+    height: 50px;
+    width: 50px;
+  }
+  .header h1{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+/* VIDEO INFO SHOWING SECTION */
+  .vidinfo{
+    background-color: transparent;
+    margin: 50px auto;
+    width: 70%;
+    height: 70%;
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    /* min-height: 100vh; */
+  }
+  .vidinfo img{
+    max-height: 100%;
+    max-width: 320px;
+    border: 2px solid #fff;
+    border-radius: 10px;
+    float: left;
+    align-items: left;
+    margin-right: 50px;
+  }
+  .text1 h2{
+    font-size: 30px;
+    color: greenyellow;
+  }
+  .text2 {
+    margin-top: 20px;
+    font-size: 15px;
+    color: greenyellow;
+  }
+  .text2 a{
+    color: white;
+    text-decoration: none;
+  }
+/* TABLE STYLING */
+    .table{
+      font-size: medium;
+      margin: 50px auto;
+      width: 70%;
+      height: 70%;
+      display: flex;
+      justify-content: center;
+  }
+  table{
+    width: 75%;
+    height: 50%;
+  }
+  td{
+    color: white;
+    text-align: center;
+  }
+/* DOWNLOAD BUTTON IN TABLE */
+.btn {
+  position: relative;
+  display: inline-block;
+  background-color: #4CAF50;
+  border: none;
+  border-radius: 5px;
+  font-size: medium;
+  color: #FFFFFF;
+  padding: 10px;
+  width: 100px;
+  height: 50%;
+  text-align: center;
+  transition-duration: 0.4s;
+  text-decoration: none;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.btn:after {
+  content: "";
+  background: #f1f1f1;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+}
+
+.btn:active:after {
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
